@@ -13,6 +13,7 @@
     - path: "/mnt/beegfs"
       port: 8004
     beegfs_fstype: "xfs"
+    beegfs_mgmt_host: "mgmt"
     beegfs_force_format: false
     beegfs_interfaces: []
     beegfs_rdma: false

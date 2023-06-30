@@ -1,0 +1,11 @@
+---
+- name: Install benchmark tools
+  hosts: beegfsclient
+  become: yes
+  tasks:
+    - name: Install benchmark tools
+      apt: 
+        name:
+          - fio
+          - iozone3
+        state: present
