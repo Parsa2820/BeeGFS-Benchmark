@@ -16,6 +16,7 @@
       - python3-pip
       - ca-certificates
       - gnupg
+      - iproute2
       - bash-completion
     state: present
   register: result

@@ -1,6 +1,6 @@
 ---
 - name: Install BeeGFS server
-  hosts: beegfs-server
+  hosts: beegfsserver
   become: yes
   environment:
     beegfs_connInterfacesList: eth0

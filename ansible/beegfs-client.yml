@@ -1,1 +1,19 @@
 ---
+- hosts: beegfsclient
+  roles:
+  - role: stackhpc.beegfs
+    beegfs_enable:
+      client: true
+      admon: false
+      mgmt: false
+      meta: false
+      oss: false
+      tuning: false
+    beegfs_client:
+    - path: "/mnt/beegfs"
+      port: 8004
+    beegfs_fstype: "xfs"
+    beegfs_force_format: false
+    beegfs_interfaces: []
+    beegfs_rdma: false
+    beegfs_state: present
