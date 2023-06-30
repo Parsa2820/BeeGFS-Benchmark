@@ -1,0 +1,62 @@
+---
+- name: Install BeeGFS server
+  hosts: beegfs-server
+  become: yes
+  environment:
+    beegfs_connInterfacesList: eth0
+    beegfs_sysMgmtdHost: "{{ ansible_default_ipv4.address }}"
+  tasks:
+    - name: Pull BeeGFS Docker images
+      docker_image:
+        name: "{{ item }}"
+      loop:
+        - beegfs/beegfs-mgmtd:latest
+        - beegfs/beegfs-meta:latest
+        - beegfs/beegfs-storage:latest
+    - name: Run BeeGFS management daemon
+      docker_container:
+        name: beegfs-mgmtd
+        image: beegfs/beegfs-mgmtd:latest
+        privileged: yes
+        network_mode: host
+        volumes:
+          - mgmtd:/mnt/mgmt_tgt_mgmt01
+        env:
+          beegfs_setup_1: "beegfs-setup-mgmtd -p /mnt/mgmt_tgt_mgmt01 -C -S mgmt_tgt_mgmt01"
+          storeAllowFirstRunInit: "false"
+          connDisableAuthentication: "true"
+          connInterfacesList: "{{ beegfs_connInterfacesList }}"
+          storeMgmtdDirectory: /mnt/mgmt_tgt_mgmt01
+        restart_policy: always
+    - name: Run BeeGFS metadata server
+      docker_container:
+        name: beegfs-meta
+        image: beegfs/beegfs-meta:latest
+        privileged: yes
+        network_mode: host
+        volumes:
+          - meta01:/mnt/meta_01_tgt_0101
+        env:
+          beegfs_setup_1: "beegfs-setup-meta -C -p /mnt/meta_01_tgt_0101 -s 1 -S meta_01"
+          storeAllowFirstRunInit: "false"
+          connDisableAuthentication: "true"
+          connInterfacesList: "{{ beegfs_connInterfacesList }}"
+          storeMetaDirectory: /mnt/meta_01_tgt_0101
+        restart_policy: always
+    - name: Run BeeGFS storage server
+      docker_container:
+        name: beegfs-storage
+        image: beegfs/beegfs-storage:latest
+        privileged: yes
+        network_mode: host
+        volumes:
+          - storage01:/mnt/stor_01_tgt_101
+          - /tmp/stor_01_tgt_102:/mnt/stor_01_tgt_102
+        env:
+          beegfs_setup_1: "beegfs-setup-storage -C -p /mnt/stor_01_tgt_101 -s 1 -S stor_01_tgt_101 -i 101"
+          beegfs_setup_2: "beegfs-setup-storage -C -p /mnt/stor_01_tgt_102 -s 1 -S stor_01_tgt_101 -i 102"
+          storeAllowFirstRunInit: "false"
+          connDisableAuthentication: "true"
+          connInterfacesList: "{{ beegfs_connInterfacesList }}"
+          storeStorageDirectory: /mnt/stor_01_tgt_101,/mnt/stor_01_tgt_102
+        restart_policy: always

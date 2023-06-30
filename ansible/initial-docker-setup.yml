@@ -1,0 +1,11 @@
+---
+- name: Initial docker setup
+  hosts: all
+  become: yes
+  tasks:
+    - name: Upgrade all packages to the latest version
+      include_tasks: tasks/upgrade.yml
+    - name: Install basic tools
+      include_tasks: tasks/basic-tools.yml
+    - name: Install docker
+      include_tasks: tasks/docker.yml

@@ -1,0 +1,16 @@
+---
+all:
+  children:
+    beegfsclient:
+      hosts:
+        aos-2:
+          ansible_host: 142.93.99.188
+          ansible_user: root
+        aos-3:
+          ansible_host: 142.93.99.86
+          ansible_user: root
+    beegfsserver:
+      hosts:
+        aos-1:
+          ansible_host: 142.93.99.77
+          ansible_user: root

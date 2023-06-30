@@ -1,0 +1,30 @@
+---
+- name: Install basic tools
+  apt:
+    name:
+      - tmux
+      - vim
+      - git
+      - curl
+      - wget
+      - unzip
+      - zip
+      - htop
+      - tree
+      - jq
+      - python3
+      - python3-pip
+      - ca-certificates
+      - gnupg
+      - bash-completion
+    state: present
+  register: result
+  until: result is succeeded
+  retries: 3
+  delay: 10
+- name: Config tmux color
+  lineinfile:
+    path: /etc/tmux.conf
+    line: set -g default-terminal "tmux-256color"
+    state: present
+    create: yes
