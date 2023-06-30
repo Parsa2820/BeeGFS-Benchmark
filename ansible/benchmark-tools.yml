@@ -9,3 +9,25 @@
           - fio
           - iozone3
         state: present
+    - name: Install build tools
+      apt: 
+        name:
+          - build-essential
+          - libaio-dev
+          - mpich
+        state: present
+    - name: Download IOR
+      get_url:
+        url: https://github.com/hpc/ior/releases/download/3.3.0/ior-3.3.0.tar.gz
+        dest: /tmp/ior-3.3.0.tar.gz
+    - name: Extract IOR
+      unarchive:
+        src: /tmp/ior-3.3.0.tar.gz
+        dest: /tmp
+        remote_src: yes
+    - name: Build IOR
+      shell: |
+        cd /tmp/ior-3.3.0
+        ./configure
+        make
+        make install
