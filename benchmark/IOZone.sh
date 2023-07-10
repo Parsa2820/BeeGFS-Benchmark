@@ -7,5 +7,5 @@ echo "File: $FILE" >> $LOG_FILE
 echo "Date: $(date)" >> $LOG_FILE
 echo "Excel file: $EXCEL_FILE" >> $LOG_FILE
 echo "========================================" >> $LOG_FILE
-echo "Benchmarking with all tests with file sizes from 1MB to 10GB" >> $LOG_FILE
+echo "Benchmarking with all tests with file size $SIZE" >> $LOG_FILE
 iozone -a -f $FILE -b $EXCEL_FILE -s $SIZE >> $LOG_FILE

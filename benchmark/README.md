@@ -8,7 +8,7 @@ The benchmark tools used in the scripts are installed on the client machine usin
 IOZone is a file system benchmark tool that generates and measures a variety of file operations. The script runs IOZone on the client machine and generates output files that can be used to analyze the performance of the file system. The script can be run as follows:
 
 ```
-bash IOZone.sh <directory in which to run IOZone> <output file>
+bash IOZone.sh <directory in which to run IOZone> <output file> <file size>
 ```
 
 ## IOR.sh
