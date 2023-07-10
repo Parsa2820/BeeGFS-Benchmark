@@ -1,5 +1,5 @@
-LOG_FILE=IOR.log
-FILE=/mnt/beegfs/mamad
+FILE=$1
+LOG_FILE=$2
 echo "Starting IOR benchmark on $HOSTNAME" > $LOG_FILE
 echo "File: $FILE" >> $LOG_FILE
 echo "Date: $(date)" >> $LOG_FILE
