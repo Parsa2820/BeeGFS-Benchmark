@@ -20,3 +20,10 @@ This playbook is used to setup a beegfs client. It will build and install the be
 ```bash
 ansible-playbook beegfs-client.yml 
 ```
+
+## benchmark-tools.yml
+This playbook is used to setup benchmark tools on the machine. It will install IOZone, FIO, and IOR on the machine. 
+
+```bash
+ansible-playbook benchmark-tools.yml 
+```
