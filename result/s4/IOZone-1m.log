@@ -1,0 +1,97 @@
+Starting IOZone benchmark on aos-ubuntu-s-4vcpu-8gb-intel-fra1-03
+File: /mnt/beegfs/s4/IOZone/IOZone-1m
+Date: Tue Jul 11 06:16:03 UTC 2023
+Excel file: /mnt/beegfs/s4/IOZone/IOZone-1m.xls
+========================================
+Benchmarking with all tests with file size 1m
+	Iozone: Performance Test of File I/O
+	        Version $Revision: 3.489 $
+		Compiled for 64 bit mode.
+		Build: linux-AMD64 
+
+	Contributors:William Norcott, Don Capps, Isom Crawford, Kirby Collins
+	             Al Slater, Scott Rhine, Mike Wisner, Ken Goss
+	             Steve Landherr, Brad Smith, Mark Kelly, Dr. Alain CYR,
+	             Randy Dunlap, Mark Montague, Dan Million, Gavin Brebner,
+	             Jean-Marc Zucconi, Jeff Blomberg, Benny Halevy, Dave Boone,
+	             Erik Habbinga, Kris Strecker, Walter Wong, Joshua Root,
+	             Fabrice Bacchella, Zhenghua Xue, Qin Li, Darren Sawyer,
+	             Vangel Bojaxhi, Ben England, Vikentsi Lapa,
+	             Alexey Skidanov, Sudhir Kumar.
+
+	Run began: Tue Jul 11 06:16:03 2023
+
+	Auto Mode
+	File size set to 1024 kB
+	Command line used: iozone -a -f /mnt/beegfs/s4/IOZone/IOZone-1m -b /mnt/beegfs/s4/IOZone/IOZone-1m.xls -s 1m
+	Output is in kBytes/sec
+	Time Resolution = 0.000001 seconds.
+	Processor cache size set to 1024 kBytes.
+	Processor cache line size set to 32 bytes.
+	File stride size set to 17 * record size.
+                                                              random    random     bkwd    record    stride                                    
+              kB  reclen    write  rewrite    read    reread    read     write     read   rewrite      read   fwrite frewrite    fread  freread
+            1024       4   188195   300099   239931   255929    10652    12362     9137     11761     15211   568884   554060   199916   117429
+            1024       8   272838   319404   220076   233209    18637    17250    14643     22795     16827   542924   657244   228470   233843
+            1024      16   300835   363247   267785   273133    37164    50321    41375     43897     17220   552563   618710   254353   247579
+            1024      32   200121   294846   233742   207458    61760    73143    55913     85769     48498   550227   535278   195788   175313
+            1024      64   261683   346625   453878   456775    57245   127379    92028    125628    486913   506672   567006   216220   297934
+            1024     128   291504   325282   486251   513579   104042   250423   133821    248784    559546   578150   595629   229042   218153
+            1024     256   340767   342588   568884   523788   183672   363370   148430    369815    506672   525969   703769   266738   247579
+            1024     512   266110   366220   277869   269044   248784   376625   208384    367820    208931   451303   639245   252588   274617
+            1024    1024   248539   365069   263789   295698   251966   296372   172130    435206    268909   429333   393823   311730   281788
+
+iozone test complete.
+Excel output is below:
+
+"Writer report"
+        "4"  "8"  "16"  "32"  "64"  "128"  "256"  "512"  "1024"  "2048"  "4096"  "8192"  "16384"
+"1024"   188195  272838  300835  200121  261683  291504  340767  266110  248539 
+
+"Re-writer report"
+        "4"  "8"  "16"  "32"  "64"  "128"  "256"  "512"  "1024"  "2048"  "4096"  "8192"  "16384"
+"1024"   300099  319404  363247  294846  346625  325282  342588  366220  365069 
+
+"Reader report"
+        "4"  "8"  "16"  "32"  "64"  "128"  "256"  "512"  "1024"  "2048"  "4096"  "8192"  "16384"
+"1024"   239931  220076  267785  233742  453878  486251  568884  277869  263789 
+
+"Re-Reader report"
+        "4"  "8"  "16"  "32"  "64"  "128"  "256"  "512"  "1024"  "2048"  "4096"  "8192"  "16384"
+"1024"   255929  233209  273133  207458  456775  513579  523788  269044  295698 
+
+"Random read report"
+        "4"  "8"  "16"  "32"  "64"  "128"  "256"  "512"  "1024"  "2048"  "4096"  "8192"  "16384"
+"1024"   10652  18637  37164  61760  57245  104042  183672  248784  251966 
+
+"Random write report"
+        "4"  "8"  "16"  "32"  "64"  "128"  "256"  "512"  "1024"  "2048"  "4096"  "8192"  "16384"
+"1024"   12362  17250  50321  73143  127379  250423  363370  376625  296372 
+
+"Backward read report"
+        "4"  "8"  "16"  "32"  "64"  "128"  "256"  "512"  "1024"  "2048"  "4096"  "8192"  "16384"
+"1024"   9137  14643  41375  55913  92028  133821  148430  208384  172130 
+
+"Record rewrite report"
+        "4"  "8"  "16"  "32"  "64"  "128"  "256"  "512"  "1024"  "2048"  "4096"  "8192"  "16384"
+"1024"   11761  22795  43897  85769  125628  248784  369815  367820  435206 
+
+"Stride read report"
+        "4"  "8"  "16"  "32"  "64"  "128"  "256"  "512"  "1024"  "2048"  "4096"  "8192"  "16384"
+"1024"   15211  16827  17220  48498  486913  559546  506672  208931  268909 
+
+"Fwrite report"
+        "4"  "8"  "16"  "32"  "64"  "128"  "256"  "512"  "1024"  "2048"  "4096"  "8192"  "16384"
+"1024"   568884  542924  552563  550227  506672  578150  525969  451303  429333 
+
+"Re-Fwrite report"
+        "4"  "8"  "16"  "32"  "64"  "128"  "256"  "512"  "1024"  "2048"  "4096"  "8192"  "16384"
+"1024"   554060  657244  618710  535278  567006  595629  703769  639245  393823 
+
+"Fread report"
+        "4"  "8"  "16"  "32"  "64"  "128"  "256"  "512"  "1024"  "2048"  "4096"  "8192"  "16384"
+"1024"   199916  228470  254353  195788  216220  229042  266738  252588  311730 
+
+"Re-Fread report"
+        "4"  "8"  "16"  "32"  "64"  "128"  "256"  "512"  "1024"  "2048"  "4096"  "8192"  "16384"
+"1024"   117429  233843  247579  175313  297934  218153  247579  274617  281788 
