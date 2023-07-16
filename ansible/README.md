@@ -1,5 +1,10 @@
 # Ansible Playbooks
 
+## Test Inventory
+```bash
+ansible all -m ping
+```
+
 ## initial-docker-setup.yml
 This playbook is used to setup docker machines. It will install docker and docker-compose on the machine with bash completion in addition to updating the system and installing some useful packages.
 
@@ -26,4 +31,11 @@ This playbook is used to setup benchmark tools on the machine. It will install I
 
 ```bash
 ansible-playbook benchmark-tools.yml 
+```
+
+## open-cas.yml
+This playbook installs Open CAS on the BeeGFS clients machine.
+
+```bash
+ansible-playbook open-cas.yml
 ```

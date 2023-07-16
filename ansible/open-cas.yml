@@ -1,0 +1,14 @@
+---
+- name: Open CAS setup
+  hosts: beegfsclient
+  become: yes
+  vars:
+    opencas_path: "/tmp/.ansible/opencas/"
+    opencas_repo_url: "https://github.com/Open-CAS/open-cas-linux.git"
+    opencas_version: "HEAD"
+  tasks:
+    - name: Gather Open CAS facts
+      cas:
+        gather_facts: True
+    - name: Install Open CAS
+      include_tasks: tasks/open-cas-install.yml
