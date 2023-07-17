@@ -7,13 +7,16 @@
 
 \newcommand{\baseimagedir}{..}
 
-\title{BeeGFS}
+\title{Evaluating Performance of BeeGFS Distributed File System}
 \author{Parsa Mohammadian\\ Arshia Akhavan}
 \date{\today}
+
 
 \begin{document}
 
 \maketitle
+
+\noindent All the code and scripts used in this project can be found in the repository \footnote{\url{https://github.com/Parsa2820/BeeGFS-Benchmark}}.
 
 \tableofcontents
 
@@ -277,7 +280,7 @@ As we can see in the results, even levels of stripping have absolutely better pe
 BeeGFS provides a mechanism for client-side caching. at the time of this research, BeeGFS provides support for two different caching scheme, buffered caching and native caching. Buffered caching provides a mechanism that results in higher streaming throughput compared to native caching, but it is limited by the cache size which is only few hundreds of kilo bytes. As for native caching scheme, BeeGFS client uses Linux's native page cache mechanism which can scale proportional to the size of the node's memory. In our experiment we used both scheme and conducted an experiment to evaluate the effects of BeeGFS client side caching on IO performance.
 
 \subsection{Buffered Caching Results}
-Bufferd caching results for 1MB, 10MB, 100MB, 1GB files can be seen in Figures \ref{fig:buffered-IOZone-1m}, \ref{fig:buffered-IOZone-10m}, \ref{fig:buffered-IOZone-100m}, \ref{fig:buffered-IOZone-1g} respectively.
+Bufferd caching results for 1MB, 10MB, 100MB, 1GB, 10GB files can be seen in Figures \ref{fig:buffered-IOZone-1m}, \ref{fig:buffered-IOZone-10m}, \ref{fig:buffered-IOZone-100m}, \ref{fig:buffered-IOZone-1g}, \ref{fig:buffered-IOZone-10g} respectively.
 
 \begin{figure}
     \centering
@@ -307,15 +310,15 @@ Bufferd caching results for 1MB, 10MB, 100MB, 1GB files can be seen in Figures \
     \label{fig:buffered-IOZone-1g}
 \end{figure}
 
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=\textwidth]{\baseimagedir/result/excel-to-chart/buffered-cache-IOZone-10g.xls.png}
-%     \caption{IOZone benchmark results for 10GB file with buffered caching}
-%     \label{fig:buffered-IOZone-10g}
-% \end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{\baseimagedir/result/excel-to-chart/buffered-cache-IOZone-10g.xls.png}
+    \caption{IOZone benchmark results for 10GB file with buffered caching}
+    \label{fig:buffered-IOZone-10g}
+\end{figure}
 
 \subsection{Native Caching Results}
-Native caching results for 1MB, 10MB, 100MB, 1GB files can be seen in Figures \ref{fig:native-IOZone-1m}, \ref{fig:native-IOZone-10m}, \ref{fig:native-IOZone-100m}, \ref{fig:native-IOZone-1g} respectively.
+Native caching results for 1MB, 10MB, 100MB, 1GB, 10GB files can be seen in Figures \ref{fig:native-IOZone-1m}, \ref{fig:native-IOZone-10m}, \ref{fig:native-IOZone-100m}, \ref{fig:native-IOZone-1g}, \ref{fig:native-IOZone-10g} respectively.
 
 \begin{figure}
     \centering
@@ -345,27 +348,37 @@ Native caching results for 1MB, 10MB, 100MB, 1GB files can be seen in Figures \r
     \label{fig:native-IOZone-1g}
 \end{figure}
 
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=\textwidth]{\baseimagedir/result/excel-to-chart/native-cache-IOZone-10g.xls.png}
-%     \caption{IOZone benchmark results for 10GB file with native caching}
-%     \label{fig:native-IOZone-10g}
-% \end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{\baseimagedir/result/excel-to-chart/native-cache-IOZone-10g.xls.png}
+    \caption{IOZone benchmark results for 10GB file with native caching}
+    \label{fig:native-IOZone-10g}
+\end{figure}
 
 \subsection{Comparison}
 As we can see in the results, both caching schemes have improved the performance of BeeGFS. In larger files the performance boost is more significant. Sometimes even there is performance degradation in smaller files due to the overhead of caching. Overally buffered caching seems to have slightly better performance than native caching. 
 
 \section{Utilize OpenCAS Cache}
 OpenCAS is a caching solution for Linux. It provides a block device which can be used as a cache for other block devices.
-Since BeeGFS is a file system, we used OpenCAS to cache the storage devices of the BeeGFS servers. The script used for installing and configuring OpenCAS can be found in \texttt{tuning/open-cas.sh \footnote{\url{https://github.com/Parsa2820/BeeGFS-Benchmark/blob/master/tuning/open-cas.sh}}} file.
 
-The results of the experiment for 1MB, 10MB, 100MB, 1GB files can be seen in Figures \ref{fig:open-cas-IOZone-1m}, \ref{fig:open-cas-IOZone-10m}, \ref{fig:open-cas-IOZone-100m}, \ref{fig:open-cas-IOZone-1g} respectively.
+In a typical BeeGFS setup, the BeeGFS mount point itself is not associated with a specific block device. BeeGFS operates at the file system level and does not directly expose or rely on a specific block device.
 
+When you mount a BeeGFS file system on a client machine, you usually mount it using a BeeGFS client software that communicates with the BeeGFS metadata and storage servers to access the underlying storage. The client software abstracts the underlying storage details, including any block devices, from the user.
 
+Instead of directly working with block devices, BeeGFS utilizes its own distributed file system architecture, where data is distributed across multiple storage servers and accessed via the BeeGFS client software.
+
+So, in the context of BeeGFS, the BeeGFS mount point does not have a direct association with a specific block device. It represents the access point to the BeeGFS file system, which is managed and served by the BeeGFS infrastructure.
+Since the BeeGFS mount point does not have a specific associated block device,
+using OpenCAS directly with BeeGFS becomes challenging.
+OpenCAS is primarily designed to work with block devices, where it can cache data at the block level.
 
 \section{Conclusion}
+Optimizing and tuning BeeGFS can be a challenging task. BeeGFS provides a lot of tunable parameters which can be used to improve the performance of the system. However, it is not always clear which parameters should be tuned and how. 
+
+Optimization very much depends on the workload. In our experiments, we have tested different workloads and different file sizes. We have also tested different caching schemes. The results is not always consistent across all workloads, but generally speaking, the performance of BeeGFS is improved by storage optimizations, even data stripping and buffered caching. 
 
 \clearpage
+\nocite{*}
 \printbibliography
 
 \end{document}
