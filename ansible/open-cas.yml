@@ -1,6 +1,6 @@
 ---
 - name: Open CAS setup
-  hosts: beegfsclient
+  hosts: beegfsserver
   become: yes
   vars:
     opencas_path: "/tmp/.ansible/opencas/"
